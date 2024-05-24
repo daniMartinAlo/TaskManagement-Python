@@ -2,16 +2,35 @@ import tkinter as tk
 from tkinter import messagebox
 
 class Tarea:
-    def __init__(self, num, name, desc):
-        self.num = num
+    def __init__(self, name, desc):
         self.name = name
         self.desc = desc
-        self.completada = False
+        self.complete = False
     
-    def completarTarea(self):
-        self.completada = True
+    def completeTask(self):
+        self.complete = True
     
     def __str__(self):
-        estado = "Completada" if self.completada else "Pendiente"
-        return f"Tarea {self.num}: {self.name} - {estado}"
+        state = "Completada" if self.complete else "Pendiente"
+        return f"Tarea {self.name}: {self.desc} - {state}"
+    
+class ListaTareas:
+    def __init__(self):
+        self.tasks = []
+
+    def addTask(self, name, desc):
+        task = Tarea(name, desc)
+        self.tasks.append(task)
+
+    def completeTask(self, i):
+        try:
+            self.tasks[i].completeTask()
+        except IndexError:
+            raise ValueError("No existe ninguna tarea con ese índice")
+    
+    def deleteTask(self, i):
+        try:
+            self.tasks.pop(i)
+        except IndexError:
+            raise ValueError("No existe ninguna tarea con ese índice") 
     

@@ -17,8 +17,9 @@ class Tarea:
     # Es un método que devuelve un string con información sobre la Tarea
     def __str__(self):
         state = "Completada" if self.complete else "Pendiente"
-        return f"Nombre: {self.name} | Descripción: {self.desc} | Estado: {state}"
-    
+        # return f"Nombre: {self.name} | Descripción: {self.desc} | Estado: {state}"
+        return f"{self.name}|{self.desc}|{state}"
+
 # Esta clase contiene como atributo la lista de tareas y tiene los métodos solicitados (Agregar, eliminar, completar y mostrar tareas)
 class ListaTareas:
     # Iniciamos la lista vacia
@@ -60,6 +61,10 @@ class App:
 
         self.frame = tk.Frame(root)
         self.frame.pack(pady=20)
+        
+        self.frame.columnconfigure(0, weight=1)
+        self.frame.columnconfigure(1, weight=1)
+        self.frame.columnconfigure(2, weight=1)
 
         # Creamos la etiqueta Nombre de la tarea y le damos un tamaño, tambien creamos el input para que lo use el usuario
         self.labelName = tk.Label(self.frame, text="Nombre de la Tarea:")
@@ -77,7 +82,7 @@ class App:
         self.addBtn.grid(row=2, columnspan=2, pady=10)
         
         self.tasksListBox = tk.Listbox(self.frame, width=50, height=10)
-        self.tasksListBox.grid(row=3, columnspan=2, pady=10)
+        self.tasksListBox.grid(row=3, columnspan=3, pady=10)
         
         self.completeBtn = tk.Button(self.frame,text="COMPLETAR TAREA", command=self.completeTask)
         self.completeBtn.grid(row=4, columnspan=2, pady=5)
@@ -118,7 +123,8 @@ class App:
     def showTasks(self):
         self.tasksListBox.delete(0,tk.END)
         for task in self.taskList.showTasks():
-            self.tasksListBox.insert(tk.END, str(task))
+            self.tasksListBox.insert(tk.END, str(task).replace("|", " | "))
+            
         
 if __name__ == "__main__":
     root = tk.Tk()

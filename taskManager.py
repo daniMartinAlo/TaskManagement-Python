@@ -47,7 +47,7 @@ class ListaTareas:
             raise ValueError("No existe ninguna tarea con ese índice") 
     
     # Método que muestra todas las tareas
-    def allTasks(self):
+    def showTasks(self):
         return self.tasks
     
 class App:
@@ -72,6 +72,53 @@ class App:
         self.labelDesc.grid(row=1, column=0)
         self.entryDesc = tk.Entry(self.frame)
         self.entryDesc.grid(row=1, column=1)
+        
+        self.addBtn = tk.Button(self.frame,text="AGREGAR TAREA", command=self.addTask)
+        self.addBtn.grid(row=2, columnspan=2, pady=10)
+        
+        self.tasksListBox = tk.Listbox(self.frame, width=50, height=10)
+        self.tasksListBox.grid(row=3, columnspan=2, pady=10)
+        
+        self.completeBtn = tk.Button(self.frame,text="COMPLETAR TAREA", command=self.completeTask)
+        self.completeBtn.grid(row=4, columnspan=2, pady=5)
+       
+        self.deleteBtn = tk.Button(self.frame,text="ELIMINAR TAREA", command=self.deleteTask)
+        self.deleteBtn.grid(row=5, columnspan=2, pady=5)
+        
+        self.showTasks()
+        
+        def addTask(self):
+            name = self.entryName.get()
+            desc = self.entryDesc.get()
+            self.tasksList.addTask(name, desc)
+            self.showTasks()
+            self.entryName.delete(0, tk.END)
+            self.entryDesc.delete(0, tk.END)
+            
+        def completeTask(self):
+            try:
+                i = self.tasksListBox.curselection()[0]
+                self.tasksList.completeTask(i)
+                self.showTasks()
+            except IndexError:
+                messagebox.showerror("ERROR", "Primero selecciona una tarea")
+            except ValueError as e:
+                messagebox.showerror("ERROR", str(e))
+        
+        def deleteTask(self):
+            try:
+                i = self.tasksListBox.curselection()[0]
+                self.tasksList.deleteTask(i)
+                self.showTasks()
+            except IndexError:
+                messagebox.showerror("ERROR", "Primero selecciona una tarea")
+            except ValueError as e:
+                messagebox.showerror("ERROR", str(e))
+                
+        def showTasks(self):
+            self.taskListBox.delete(0,tk.END)
+            for task in self.taskList.showTask():
+                self.taskListBox.insert(tk.END, str(task))
         
 if __name__ == "__main__":
     root = tk.Tk()

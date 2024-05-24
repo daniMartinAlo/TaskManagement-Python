@@ -17,7 +17,7 @@ class Tarea:
     # Es un método que devuelve un string con información sobre la Tarea
     def __str__(self):
         state = "Completada" if self.complete else "Pendiente"
-        return f"Tarea {self.name}: {self.desc} - {state}"
+        return f"Nombre: {self.name} | Descripción: {self.desc} | Estado: {state}"
     
 # Esta clase contiene como atributo la lista de tareas y tiene los métodos solicitados (Agregar, eliminar, completar y mostrar tareas)
 class ListaTareas:

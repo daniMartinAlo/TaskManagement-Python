@@ -61,10 +61,12 @@ class App:
 
         self.frame = tk.Frame(root)
         self.frame.pack(pady=20)
+
+        self.text = tk.Label(root, text="Gestor de tareas", font=("Helvetica", 14, "italic"), fg="white", bg="blue")
+        self.text.pack(padx=5, pady=5)
         
-        self.frame.columnconfigure(0, weight=1)
-        self.frame.columnconfigure(1, weight=1)
-        self.frame.columnconfigure(2, weight=1)
+        self.frame = tk.Frame(root)
+        self.frame.pack(padx=10, pady=10)
 
         # Creamos la etiqueta Nombre de la tarea y le damos un tamaño, tambien creamos el input para que lo use el usuario
         self.labelName = tk.Label(self.frame, text="Nombre de la Tarea:")

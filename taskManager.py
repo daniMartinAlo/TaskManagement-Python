@@ -87,38 +87,38 @@ class App:
         
         self.showTasks()
         
-        def addTask(self):
-            name = self.entryName.get()
-            desc = self.entryDesc.get()
-            self.tasksList.addTask(name, desc)
-            self.showTasks()
-            self.entryName.delete(0, tk.END)
-            self.entryDesc.delete(0, tk.END)
+    def addTask(self):
+        name = self.entryName.get()
+        desc = self.entryDesc.get()
+        self.tasksList.addTask(name, desc)
+        self.showTasks()
+        self.entryName.delete(0, tk.END)
+        self.entryDesc.delete(0, tk.END)
             
-        def completeTask(self):
-            try:
-                i = self.tasksListBox.curselection()[0]
-                self.tasksList.completeTask(i)
-                self.showTasks()
-            except IndexError:
-                messagebox.showerror("ERROR", "Primero selecciona una tarea")
-            except ValueError as e:
-                messagebox.showerror("ERROR", str(e))
-        
-        def deleteTask(self):
-            try:
-                i = self.tasksListBox.curselection()[0]
-                self.tasksList.deleteTask(i)
-                self.showTasks()
-            except IndexError:
-                messagebox.showerror("ERROR", "Primero selecciona una tarea")
-            except ValueError as e:
-                messagebox.showerror("ERROR", str(e))
-                
-        def showTasks(self):
-            self.taskListBox.delete(0,tk.END)
-            for task in self.taskList.showTask():
-                self.taskListBox.insert(tk.END, str(task))
+    def completeTask(self):
+        try:
+            i = self.tasksListBox.curselection()[0]
+            self.tasksList.completeTask(i)
+            self.showTasks()
+        except IndexError:
+            messagebox.showerror("ERROR", "Primero selecciona una tarea")
+        except ValueError as e:
+            messagebox.showerror("ERROR", str(e))
+    
+    def deleteTask(self):
+        try:
+            i = self.tasksListBox.curselection()[0]
+            self.tasksList.deleteTask(i)
+            self.showTasks()
+        except IndexError:
+            messagebox.showerror("ERROR", "Primero selecciona una tarea")
+        except ValueError as e:
+            messagebox.showerror("ERROR", str(e))
+            
+    def showTasks(self):
+        self.taskListBox.delete(0,tk.END)
+        for task in self.taskList.showTask():
+            self.taskListBox.insert(tk.END, str(task))
         
 if __name__ == "__main__":
     root = tk.Tk()

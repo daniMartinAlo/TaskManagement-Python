@@ -137,17 +137,22 @@ class App:
             self.showTasks()
             self.entryName.delete(0, tk.END)
             self.entryDesc.delete(0, tk.END)
-            
+    
+    # Función para completar la tarea        
     def completeTask(self):
+        # Control de errores en caso de fallo
         try:
+            # Cogemos el índice de la tarea seleccionada y conociendo el indice llamamos a completeTask
             i = self.tasksListBox.curselection()[0]
             self.taskList.completeTask(i)
             self.showTasks()
         except IndexError:
+            # Salta el error en caso de que el usuario no haya seleccionado ninguna tarea
             messagebox.showerror("ERROR", "Primero selecciona una tarea")
         except ValueError as e:
             messagebox.showerror("ERROR", str(e))
     
+    # Parecida a la funcion anterior pero cuando queremos poner la tarea como pendiente de nuevo
     def notCompleteTask(self):
         try:
             i = self.tasksListBox.curselection()[0]
@@ -158,8 +163,10 @@ class App:
         except ValueError as e:
             messagebox.showerror("ERROR", str(e))
     
+    # Función que controla la eliminación de la tarea
     def deleteTask(self):
         try:
+            # Cogemos el índice y se lo pasamos a la funcion del objeto
             i = self.tasksListBox.curselection()[0]
             self.taskList.deleteTask(i)
             self.showTasks()
@@ -168,14 +175,17 @@ class App:
         except ValueError as e:
             messagebox.showerror("ERROR", str(e))
             
+    # Función que muestra todas las tareas y por tanto es llamada cada vez que se agrega, elimina o modifica una tarea        
     def showTasks(self):
         self.tasksListBox.delete(0,tk.END)
+        # Recorremos la lista de tareas y mostramos las tareas y le damos un color de fondo dependiendo de su state
         for task in self.taskList.showTasks():
             # self.tasksListBox.insert(tk.END, str(task).replace("|", " | "))  
             task_str, bg_color = str(task), task.get_background_color()
             self.tasksListBox.insert(tk.END, task_str.replace("|", " | "))
             self.tasksListBox.itemconfig(tk.END, {'bg': bg_color})   
         
+# Ejecución de la página garantizando el uso de tkinter
 if __name__ == "__main__":
     root = tk.Tk()
     app = App(root)
